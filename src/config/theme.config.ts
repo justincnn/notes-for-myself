@@ -16,7 +16,11 @@ export const SITE = {
 
 export const NAVIGATION = [
   { to: "/", label: "Home" },
-  { to: "/blog", label: "Writing" },
+  { to: "/blog", label: "Blog" },
+  {
+    to: "https://app.pagescms.org/justincnn/notes-for-myself/main/collection/posts",
+    label: "Writing",
+  },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];

@@ -29,11 +29,14 @@ const iconClass = isHome
         NAVIGATION.map((item) => {
           const exact = item.to === "/";
           const active = exact ? current === "/" : current.startsWith(item.to);
+          const external = /^(?:[a-z]+:)?\/\//i.test(item.to);
           return (
             <a
               href={withBase(item.to)}
               class={`text-sm ${active ? activeClass : inactiveClass}`}
               aria-current={active ? "page" : undefined}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
             >
               {item.label}
             </a>
@@ -101,11 +104,14 @@ const iconClass = isHome
         NAVIGATION.map((item) => {
           const exact = item.to === "/";
           const active = exact ? current === "/" : current.startsWith(item.to);
+          const external = /^(?:[a-z]+:)?\/\//i.test(item.to);
           return (
             <a
               href={withBase(item.to)}
               class={`rounded-md px-2 py-2 text-sm hover:bg-muted hover:text-foreground ${active ? "text-foreground" : "text-muted-foreground"}`}
               aria-current={active ? "page" : undefined}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noreferrer" : undefined}
             >
               {item.label}
             </a>
