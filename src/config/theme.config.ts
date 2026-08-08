@@ -7,7 +7,7 @@ const siteUrl = (
 export const SITE = {
   name: "Quiet Pages",
   description:
-    "An independent magazine on writing, design, and the slow web. Published occasionally, read closely.",
+    "A personal hobby blog collecting and organizing notes on software, systems, and AI. Written by a curious hobbyist, not an expert.",
   url: siteUrl,
   locale: "en-US",
   language: "en",
