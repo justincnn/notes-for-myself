@@ -21,7 +21,8 @@ export const imageSrc = (image) => (typeof image === "string" ? image : image?.s
 export const withBase = (path = "") => {
   if (!path || /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith("mailto:")) return path;
   const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
-  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+  const stripped = path.startsWith(base) ? path.slice(base.length) : path;
+  return `${base}${stripped.startsWith("/") ? stripped : `/${stripped}`}`;
 };
 
 export const normalizePost = (entry) => ({
