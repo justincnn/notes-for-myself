@@ -16,9 +16,17 @@ const posts = await sortedPosts();
   <div class="mx-auto max-w-4xl px-5 py-12" data-archive>
     <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Archive" }]} />
     <h1 class="mt-4 font-serif text-4xl font-semibold sm:text-5xl">The archive</h1>
-    <p class="mt-3 max-w-xl text-muted-foreground">
-      Every piece we've published. {posts.length} essays, field notes, and interviews.
-    </p>
+    {
+      posts.length > 0 ? (
+        <p class="mt-3 max-w-xl text-muted-foreground">
+          Every piece I've published. {posts.length} {posts.length === 1 ? "note" : "notes"}.
+        </p>
+      ) : (
+        <p class="mt-3 max-w-xl text-muted-foreground">
+          Nothing here yet &mdash; new notes will appear here as I publish them.
+        </p>
+      )
+    }
 
     <form data-archive-search class="mt-8 flex items-center gap-2 border-b border-border pb-2">
       <Icon name="search" class="h-4 w-4 text-muted-foreground" />
@@ -40,27 +48,35 @@ const posts = await sortedPosts();
     </form>
 
     <div class="mt-6 space-y-4 text-sm">
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs uppercase tracking-wider text-muted-foreground">Categories</span>
-        <a data-category-filter="" href={withBase("/blog")} class="rounded-full border px-3 py-1 text-xs">All</a>
-        {
-          categories.map((category) => (
-            <a data-category-filter={category.slug} href={withBase(`/categories/${category.slug}`)} class="rounded-full border px-3 py-1 text-xs">
-              {category.name}
-            </a>
-          ))
-        }
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
-        {
-          tags.map((tag) => (
-            <a data-tag-filter={tag.slug} href={withBase(`/tags/${tag.slug}`)} class="rounded-full border px-2.5 py-0.5 text-xs">
-              #{tag.name}
-            </a>
-          ))
-        }
-      </div>
+      {
+        categories.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs uppercase tracking-wider text-muted-foreground">Categories</span>
+            <a data-category-filter="" href={withBase("/blog")} class="rounded-full border px-3 py-1 text-xs">All</a>
+            {
+              categories.map((category) => (
+                <a data-category-filter={category.slug} href={withBase(`/categories/${category.slug}`)} class="rounded-full border px-3 py-1 text-xs">
+                  {category.name}
+                </a>
+              ))
+            }
+          </div>
+        )
+      }
+      {
+        tags.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
+            {
+              tags.map((tag) => (
+                <a data-tag-filter={tag.slug} href={withBase(`/tags/${tag.slug}`)} class="rounded-full border px-2.5 py-0.5 text-xs">
+                  #{tag.name}
+                </a>
+              ))
+            }
+          </div>
+        )
+      }
     </div>
 
     <div data-archive-count class="mt-6 text-sm text-muted-foreground"></div>

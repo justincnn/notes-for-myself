@@ -7,24 +7,21 @@ content:
     type: collection
     path: src/content/blog
     view:
-      fields: [ title, draft, date ]
+      fields: [ title, date, draft ]
     fields:
-      - { name: author, label: Author, type: string }
-      - { name: pubDatetime, label: Date, type: date }
-      - { name: modDatetime, label: Date, type: date }
       - { name: title, label: Title, type: string, required: true }
-      - { name: ogImage, label: Title, type: string }
-      - { name: slug, label: Slug, type: string }
+      - { name: excerpt, label: Excerpt, type: string }
+      - { name: seoTitle, label: SEO title, type: string }
+      - { name: seoDescription, label: SEO description, type: string }
+      - { name: canonical, label: Canonical URL, type: string }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: updated, label: Updated, type: date }
+      - { name: readingTime, label: Reading time (minutes), type: number }
+      - { name: category, label: Category, type: string }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: author, label: Author, type: string }
+      - { name: thumbnail, label: Thumbnail, type: image }
+      - { name: thumbnailAlt, label: Thumbnail alt text, type: string }
       - { name: featured, label: Featured, type: boolean }
       - { name: draft, label: Draft, type: boolean }
-      - { name: tags, label: Tags, type: string, list: true }
-      - { name: description, label: Description, type: string }
       - { name: body, label: Body, type: rich-text }
-  - name: about
-    label: About page
-    type: file
-    path: src/pages/about.md
-    fields:
-      - { name: layout, type: string, hidden: true, default: "../layouts/AboutLayout.astro" }
-      - { name: title, label: Title, type: string }
-      - { name: body, label: Body, type: rich-text, options: { input: public/assets, output: /assets } }
