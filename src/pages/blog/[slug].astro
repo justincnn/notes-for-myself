@@ -128,7 +128,7 @@ const jsonLd = {
             {
               thumbnailIsString ? (
                 <img
-                  src={withBase(post.thumbnail)}
+                  src={encodeURI(withBase(post.thumbnail))}
                   alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
                   class="w-full"
                   loading="lazy"

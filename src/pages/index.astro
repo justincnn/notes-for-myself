@@ -99,7 +99,7 @@ const hasPosts = latest.length > 0 || Boolean(featured);
                   featured.thumbnail && (
                     typeof featured.thumbnail === "string" ? (
                       <img
-                        src={withBase(featured.thumbnail)}
+                        src={encodeURI(withBase(featured.thumbnail))}
                         alt=""
                         width="720"
                         height="480"
@@ -169,49 +169,53 @@ const hasPosts = latest.length > 0 || Boolean(featured);
     )
   }
 
-  <section class="mx-auto max-w-6xl px-5 py-16" data-home-latest>
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <h2 class="font-serif text-2xl font-semibold">Latest</h2>
-      <div class="flex flex-wrap gap-2">
-        <button
-          type="button"
-          data-home-filter=""
-          class="rounded-full border px-3 py-1 text-xs transition-colors border-foreground bg-foreground text-background"
-        >
-          All
-        </button>
-        {
-          categories.map((category) => (
+  {
+    (latest.length > 0 || !hasPosts) && (
+      <section class="mx-auto max-w-6xl px-5 py-16" data-home-latest>
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <h2 class="font-serif text-2xl font-semibold">Latest</h2>
+          <div class="flex flex-wrap gap-2">
             <button
               type="button"
-              data-home-filter={category.slug}
-              class="rounded-full border px-3 py-1 text-xs transition-colors border-border text-muted-foreground hover:text-foreground"
+              data-home-filter=""
+              class="rounded-full border px-3 py-1 text-xs transition-colors border-foreground bg-foreground text-background"
             >
-              {category.name}
+              All
             </button>
-          ))
-        }
-      </div>
-    </div>
-
-    <div data-home-empty class="mt-12 rounded-md border border-dashed border-border py-16 text-center text-muted-foreground" hidden={hasPosts}>
-      No posts yet. New notes will appear here soon.
-    </div>
-
-    <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {latest.map((post, index) => <PostCard post={post} hidden={index >= 6} />)}
-    </div>
-
-    {
-      hasPosts && (
-        <div class="mt-12 text-center">
-          <a href={withBase("/blog")} class="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted">
-            Browse the archive <Icon name="arrow-right" class="h-3.5 w-3.5" />
-          </a>
+            {
+              categories.map((category) => (
+                <button
+                  type="button"
+                  data-home-filter={category.slug}
+                  class="rounded-full border px-3 py-1 text-xs transition-colors border-border text-muted-foreground hover:text-foreground"
+                >
+                  {category.name}
+                </button>
+              ))
+            }
+          </div>
         </div>
+
+        <div data-home-empty class="mt-12 rounded-md border border-dashed border-border py-16 text-center text-muted-foreground" hidden={hasPosts}>
+          No posts yet. New notes will appear here soon.
+        </div>
+
+        <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {latest.map((post, index) => <PostCard post={post} hidden={index >= 6} />)}
+        </div>
+
+        {
+          hasPosts && (
+            <div class="mt-12 text-center">
+              <a href={withBase("/blog")} class="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted">
+                Browse the archive <Icon name="arrow-right" class="h-3.5 w-3.5" />
+              </a>
+            </div>
+          )
+        }
+        </section>
       )
     }
-  </section>
 </BaseLayout>
 
 <script>
