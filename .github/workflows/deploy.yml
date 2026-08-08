@@ -51,9 +51,19 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      # 1. 先安装依赖（生成 node_modules）
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
+      # 2. 【新增】推送数据库 Schema（此时 node_modules 已准备就绪，不会再报 ENOENT）
+      - name: Push Database Schema
+        uses: withastro/action-studio@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          ASTRO_STUDIO_APP_TOKEN: ${{ secrets.ASTRO_STUDIO_APP_TOKEN }}
+
+      # 3. 再进行网站构建
       - name: Build with Astro
         env:
           PUBLIC_SITE_URL: ${{ steps.pages.outputs.origin }}
