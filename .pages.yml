@@ -10,14 +10,14 @@ content:
       fields: [ title, date, draft ]
     fields:
       - { name: title, label: Title, type: string, required: true }
-      - { name: excerpt, label: Excerpt, type: string }
+      - { name: excerpt, label: Excerpt, type: string, required: true }
       - { name: seoTitle, label: SEO title, type: string }
       - { name: seoDescription, label: SEO description, type: string }
       - { name: canonical, label: Canonical URL, type: string }
       - { name: date, label: Date, type: date, required: true }
       - { name: updated, label: Updated, type: date }
       - { name: readingTime, label: Reading time (minutes), type: number }
-      - { name: category, label: Category, type: string }
+      - { name: category, label: Category, type: string, required: true }
       - { name: tags, label: Tags, type: string, list: true }
       - { name: author, label: Author, type: string }
       - { name: thumbnail, label: Thumbnail, type: image }
