@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
+import remarkBlobImages from "./src/lib/remark-blob-images.js";
 
 // 如果环境变量未指定，默认使用你的自定义域名
 const site =
@@ -10,7 +11,10 @@ const base = process.env.BASE_PATH || "/"; // 自定义域名部署在根路径�
 export default defineConfig({
   site,
   base,
-  integrations: [mdx()],
+  markdown: {
+    remarkPlugins: [remarkBlobImages],
+  },
+  integrations: [mdx({ remarkPlugins: [remarkBlobImages] })],
   vite: {
     plugins: [tailwindcss()],
   },
