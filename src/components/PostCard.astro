@@ -4,7 +4,7 @@ import { getAuthor, getCategory, formatDate, withBase } from "../lib/blog-data.j
 
 const { post, variant = "default", hidden = false } = Astro.props;
 const author = getAuthor(post.author);
-const category = getCategory(post.category);
+const category = getCategory(post.category) ?? { slug: post.category, name: post.category };
 const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
 const thumbnailIsString = typeof post.thumbnail === "string";
 ---

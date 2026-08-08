@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const post = normalizePost(entry);
 const author = getAuthor(post.author);
-const category = getCategory(post.category);
+const category = getCategory(post.category) ?? { slug: post.category, name: post.category };
 const { Content, headings } = await render(entry);
 const toc = headings
   .filter((heading) => heading.depth === 2 || heading.depth === 3)

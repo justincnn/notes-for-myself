@@ -42,6 +42,27 @@ export const getPost = async (slug) => (await posts()).find((post) => post.slug 
 export const getAuthor = (slug) => authors.find((author) => author.slug === slug);
 export const getCategory = (slug) => categories.find((category) => category.slug === slug);
 export const getTag = (slug) => tags.find((tag) => tag.slug === slug);
+export const getCategories = async () => {
+  const posts = await sortedPosts();
+  const map = new Map();
+  for (const post of posts) {
+    const slug = post.category;
+    if (!slug || map.has(slug)) continue;
+    map.set(slug, { slug, name: categories.find((c) => c.slug === slug)?.name ?? slug });
+  }
+  return [...map.values()];
+};
+export const getTags = async () => {
+  const posts = await sortedPosts();
+  const map = new Map();
+  for (const post of posts) {
+    for (const tag of post.tags ?? []) {
+      if (map.has(tag)) continue;
+      map.set(tag, { slug: tag, name: tags.find((t) => t.slug === tag)?.name ?? tag });
+    }
+  }
+  return [...map.values()];
+};
 export const postsByCategory = async (slug) =>
   (await sortedPosts()).filter((post) => post.category === slug);
 export const postsByTag = async (slug) =>

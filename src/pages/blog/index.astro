@@ -3,9 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
 import Icon from "../../components/Icon.astro";
-import { SITE, categories, sortedPosts, tags, withBase } from "../../lib/blog-data.js";
+import { SITE, getCategories, getTags, sortedPosts, withBase } from "../../lib/blog-data.js";
 
 const posts = await sortedPosts();
+const categoryList = await getCategories();
+const tagList = await getTags();
 ---
 
 <BaseLayout
@@ -49,12 +51,12 @@ const posts = await sortedPosts();
 
     <div class="mt-6 space-y-4 text-sm">
       {
-        categories.length > 0 && (
+        categoryList.length > 0 && (
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-xs uppercase tracking-wider text-muted-foreground">Categories</span>
             <a data-category-filter="" href={withBase("/blog")} class="rounded-full border px-3 py-1 text-xs">All</a>
             {
-              categories.map((category) => (
+              categoryList.map((category) => (
                 <a data-category-filter={category.slug} href={withBase(`/categories/${category.slug}`)} class="rounded-full border px-3 py-1 text-xs">
                   {category.name}
                 </a>
@@ -64,11 +66,11 @@ const posts = await sortedPosts();
         )
       }
       {
-        tags.length > 0 && (
+        tagList.length > 0 && (
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
             {
-              tags.map((tag) => (
+              tagList.map((tag) => (
                 <a data-tag-filter={tag.slug} href={withBase(`/tags/${tag.slug}`)} class="rounded-full border px-2.5 py-0.5 text-xs">
                   #{tag.name}
                 </a>

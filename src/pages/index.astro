@@ -6,7 +6,7 @@ import Icon from "../components/Icon.astro";
 import autumnScene from "../assets/autumn-scene.png";
 import {
   SITE,
-  categories,
+  getCategories,
   featuredPost,
   sortedPosts,
   getAuthor,
@@ -17,9 +17,12 @@ import {
 
 const featured = await featuredPost();
 const featuredAuthor = featured ? getAuthor(featured.author) : undefined;
-const featuredCategory = featured ? getCategory(featured.category) : undefined;
+const featuredCategory = featured
+  ? getCategory(featured.category) ?? { slug: featured.category, name: featured.category }
+  : undefined;
 const latest = (await sortedPosts()).filter((post) => post.slug !== featured?.slug);
 const hasPosts = latest.length > 0 || Boolean(featured);
+const categoryList = await getCategories();
 ---
 
 <BaseLayout
@@ -183,7 +186,7 @@ const hasPosts = latest.length > 0 || Boolean(featured);
               All
             </button>
             {
-              categories.map((category) => (
+              categoryList.map((category) => (
                 <button
                   type="button"
                   data-home-filter={category.slug}

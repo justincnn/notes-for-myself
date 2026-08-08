@@ -3,10 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
 import Sidebar from "../../components/Sidebar.astro";
-import { SITE, categories, postsByCategory } from "../../lib/blog-data.js";
+import { SITE, getCategories, postsByCategory } from "../../lib/blog-data.js";
 
-export function getStaticPaths() {
-  return categories.map((category) => ({ params: { slug: category.slug }, props: { category } }));
+export async function getStaticPaths() {
+  const categoryList = await getCategories();
+  return categoryList.map((category) => ({ params: { slug: category.slug }, props: { category } }));
 }
 
 const { category } = Astro.props;

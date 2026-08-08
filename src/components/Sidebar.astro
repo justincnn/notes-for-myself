@@ -1,11 +1,20 @@
 ---
 import Icon from "./Icon.astro";
 import PostCard from "./PostCard.astro";
-import { categories, tags, popularPosts, sortedPosts, authors, withBase } from "../lib/blog-data.js";
+import {
+  getCategories,
+  getTags,
+  popularPosts,
+  sortedPosts,
+  authors,
+  withBase,
+} from "../lib/blog-data.js";
 
 const recent = (await sortedPosts()).slice(0, 4);
 const popular = await popularPosts();
 const author = authors[0];
+const categoryList = await getCategories();
+const tagList = await getTags();
 ---
 
 <aside class="space-y-10">
@@ -25,12 +34,12 @@ const author = authors[0];
   }
 
   {
-    categories.length > 0 && (
+    categoryList.length > 0 && (
       <div>
         <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Categories</div>
         <ul class="mt-3 space-y-2 text-sm">
           {
-            categories.map((category) => (
+            categoryList.map((category) => (
               <li>
                 <a href={withBase(`/categories/${category.slug}`)} class="text-foreground/80 hover:text-primary">
                   {category.name}
@@ -66,12 +75,12 @@ const author = authors[0];
   }
 
   {
-    tags.length > 0 && (
+    tagList.length > 0 && (
       <div>
         <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Tags</div>
         <div class="mt-3 flex flex-wrap gap-2">
           {
-            tags.map((tag) => (
+            tagList.map((tag) => (
               <a
                 href={withBase(`/tags/${tag.slug}`)}
                 class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary"

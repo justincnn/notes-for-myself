@@ -1,9 +1,11 @@
-import { SITE, authors, categories, sortedPosts, tags, withBase } from "../lib/blog-data.js";
+import { SITE, authors, getCategories, getTags, sortedPosts, withBase } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
 export async function GET() {
   const posts = await sortedPosts();
+  const categoryList = await getCategories();
+  const tagList = await getTags();
   const entries = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
     { path: "/blog", changefreq: "daily", priority: "0.9" },
@@ -15,12 +17,12 @@ export async function GET() {
       changefreq: "monthly",
       priority: "0.8",
     })),
-    ...categories.map((category) => ({
+    ...categoryList.map((category) => ({
       path: `/categories/${category.slug}`,
       changefreq: "weekly",
       priority: "0.6",
     })),
-    ...tags.map((tag) => ({
+    ...tagList.map((tag) => ({
       path: `/tags/${tag.slug}`,
       changefreq: "weekly",
       priority: "0.4",
