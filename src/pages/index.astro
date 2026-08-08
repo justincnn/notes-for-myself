@@ -23,7 +23,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
 ---
 
 <BaseLayout
-  title={`${SITE.name} - Writing, design & the slow web`}
+  title={`The AI Humanist - ${SITE.name}`}
   description={SITE.description}
   canonical="/"
   flushFooter
@@ -57,13 +57,12 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     <div class="relative mx-auto flex min-h-[calc(100svh-6rem)] max-w-6xl items-center px-5 py-20 sm:min-h-[680px] sm:py-24">
       <div class="max-w-4xl text-white drop-shadow-[0_1px_18px_rgba(0,0,0,0.28)]">
         <h1 class="font-serif text-[2.5rem] font-medium leading-[1.02] sm:text-6xl lg:text-7xl">
-        An independent magazine on
-          <span class="italic text-white"> writing</span>,
-          <span class="italic text-white"> design</span>, and the
-          <span class="italic text-white"> slow web</span>.
+          The <span class="italic text-white">AI Humanist</span>
         </h1>
         <p class="mt-8 max-w-xl text-lg leading-relaxed text-white/86">
-          Essays, field notes, and conversations &mdash; published occasionally, edited carefully, and meant to be read in a single sitting.
+          Personal notes on AI technology, everyday workflows, and societal impacts from a
+          non-engineering background. Frameworks, practical guides, and thoughtful essays
+          &mdash; demystifying artificial intelligence through a liberal arts lens.
         </p>
         <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
