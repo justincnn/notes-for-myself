@@ -8,7 +8,7 @@ category: VPS
 tags:
   - VPS
 author: Justin
-thumbnail: /ChatGPT Image 2026年8月8日 13_11_48.png
+thumbnail: /ChatGPT Image 2026年8月8日 14_07_08.png
 featured: true
 draft: false
 ---
