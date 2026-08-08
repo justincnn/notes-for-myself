@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import Newsletter from "../components/Newsletter.astro";
 import Icon from "../components/Icon.astro";
-import autumnScene from "../assets/autumn-scene.webp";
+import autumnScene from "../assets/autumn-scene.png";
 import {
   SITE,
   categories,
@@ -36,8 +36,8 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
       loading="eager"
       fetchpriority="high"
       decoding="async"
-      width={1600}
-      widths={[640, 960, 1280, 1600]}
+      width={1920}
+      widths={[640, 960, 1280, 1600, 1920]}
       sizes="100vw"
       format="webp"
       quality={50}
