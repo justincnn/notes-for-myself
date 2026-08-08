@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
-import Newsletter from "../components/Newsletter.astro";
 import Icon from "../components/Icon.astro";
 import autumnScene from "../assets/autumn-scene.png";
 import {
@@ -201,8 +200,6 @@ const hasPosts = latest.length > 0 || Boolean(featured);
       )
     }
   </section>
-
-  <Newsletter />
 </BaseLayout>
 
 <script>

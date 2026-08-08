@@ -37,11 +37,6 @@ export const FORMS = {
     method: "post",
     enctype: "application/x-www-form-urlencoded",
   },
-  newsletter: {
-    action: "",
-    method: "post",
-    enctype: "application/x-www-form-urlencoded",
-  },
 };
 
 export const SOCIAL_LINKS = [
