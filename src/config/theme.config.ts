@@ -50,6 +50,10 @@ export const authors = [];
 
 export const categories = [
   { slug: "vps", name: "VPS" },
+  { slug: "telegram", name: "Telegram" },
+  { slug: "github", name: "GitHub" },
+  { slug: "cloudflare", name: "Cloudflare" },
+  { slug: "网盘", name: "网盘" },
 ];
 
 export const tags = [];
