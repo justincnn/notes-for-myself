@@ -1,8 +1,8 @@
-import { SITE } from "../lib/blog-data.js";
+import { SITE, withBase } from "../lib/blog-data.js";
 
 export function GET() {
   return new Response(
-    ["User-agent: *", "Allow: /", `Sitemap: ${SITE.url}/sitemap.xml`, ""].join("\n"),
+    ["User-agent: *", "Allow: /", `Sitemap: ${SITE.url}${withBase("/sitemap.xml")}`, ""].join("\n"),
     {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",

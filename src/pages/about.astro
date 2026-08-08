@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import { SITE, authors } from "../lib/blog-data.js";
+import { SITE, authors, withBase } from "../lib/blog-data.js";
 ---
 
 <BaseLayout
@@ -39,8 +39,8 @@ import { SITE, authors } from "../lib/blog-data.js";
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
           authors.map((author) => (
-            <a href={`/authors/${author.slug}`} class="group flex items-start gap-3">
-              <img src={author.avatar} alt="" width="48" height="48" class="h-12 w-12 rounded-full" />
+            <a href={withBase(`/authors/${author.slug}`)} class="group flex items-start gap-3">
+              <img src={withBase(author.avatar)} alt="" width="48" height="48" class="h-12 w-12 rounded-full" />
               <div>
                 <div class="font-serif text-base font-semibold group-hover:text-primary">{author.name}</div>
                 <div class="mt-1 text-sm text-muted-foreground">{author.bio}</div>

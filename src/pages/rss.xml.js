@@ -1,4 +1,4 @@
-import { SITE, getAuthor, sortedPosts } from "../lib/blog-data.js";
+import { SITE, getAuthor, sortedPosts, withBase } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
@@ -7,7 +7,7 @@ const esc = (value) =>
 
 export async function GET() {
   const items = (await sortedPosts()).map((post) => {
-    const link = `${BASE_URL}/blog/${post.slug}`;
+    const link = `${BASE_URL}${withBase(`/blog/${post.slug}`)}`;
     const author = getAuthor(post.author);
     return [
       "    <item>",
@@ -28,7 +28,7 @@ export async function GET() {
     '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">',
     "  <channel>",
     `    <title>${esc(SITE.name)}</title>`,
-    `    <link>${BASE_URL}/</link>`,
+    `    <link>${BASE_URL}${withBase("/")}</link>`,
     `    <description>${esc(SITE.description)}</description>`,
     "    <language>en-us</language>",
     ...items,

@@ -18,6 +18,12 @@ const estimateReadingTime = (text = "") => {
 
 export const imageSrc = (image) => (typeof image === "string" ? image : image?.src);
 
+export const withBase = (path = "") => {
+  if (!path || /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith("mailto:")) return path;
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
+};
+
 export const normalizePost = (entry) => ({
   slug: entry.id,
   ...entry.data,

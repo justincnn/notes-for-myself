@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
 import Icon from "../../components/Icon.astro";
-import { SITE, categories, sortedPosts, tags } from "../../lib/blog-data.js";
+import { SITE, categories, sortedPosts, tags, withBase } from "../../lib/blog-data.js";
 
 const posts = await sortedPosts();
 ---
@@ -42,10 +42,10 @@ const posts = await sortedPosts();
     <div class="mt-6 space-y-4 text-sm">
       <div class="flex flex-wrap items-center gap-2">
         <span class="text-xs uppercase tracking-wider text-muted-foreground">Categories</span>
-        <a data-category-filter="" href="/blog" class="rounded-full border px-3 py-1 text-xs">All</a>
+        <a data-category-filter="" href={withBase("/blog")} class="rounded-full border px-3 py-1 text-xs">All</a>
         {
           categories.map((category) => (
-            <a data-category-filter={category.slug} href={`/categories/${category.slug}`} class="rounded-full border px-3 py-1 text-xs">
+            <a data-category-filter={category.slug} href={withBase(`/categories/${category.slug}`)} class="rounded-full border px-3 py-1 text-xs">
               {category.name}
             </a>
           ))
@@ -55,7 +55,7 @@ const posts = await sortedPosts();
         <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
         {
           tags.map((tag) => (
-            <a data-tag-filter={tag.slug} href={`/tags/${tag.slug}`} class="rounded-full border px-2.5 py-0.5 text-xs">
+            <a data-tag-filter={tag.slug} href={withBase(`/tags/${tag.slug}`)} class="rounded-full border px-2.5 py-0.5 text-xs">
               #{tag.name}
             </a>
           ))
@@ -122,7 +122,8 @@ const posts = await sortedPosts();
       if (state.tag) params.set("tag", state.tag);
       if (state.page > 1) params.set("page", String(state.page));
       const query = params.toString();
-      history.pushState(state, "", query ? `/blog?${query}` : "/blog");
+      const baseUrl = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+      history.pushState(state, "", query ? `${baseUrl}/blog?${query}` : `${baseUrl}/blog`);
     };
 
     const applyLinkState = (links, activeValue, active, inactive, attr) => {

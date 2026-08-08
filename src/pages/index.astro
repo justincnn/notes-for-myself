@@ -13,6 +13,7 @@ import {
   getAuthor,
   getCategory,
   formatDate,
+  withBase,
 } from "../lib/blog-data.js";
 
 const featured = await featuredPost();
@@ -66,13 +67,13 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
         </p>
         <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
-            href={`/blog/${featured.slug}`}
+            href={withBase(`/blog/${featured.slug}`)}
             class="group inline-flex items-center gap-2 border-b border-white pb-1 text-sm font-medium text-white hover:border-white/70 hover:text-white/82"
           >
             Begin with this issue's lead essay
             <Icon name="arrow-right" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </a>
-          <a href="/blog" class="text-sm text-white/76 hover:text-white">
+          <a href={withBase("/blog")} class="text-sm text-white/76 hover:text-white">
             Or browse the archive
           </a>
         </div>
@@ -84,10 +85,10 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     <div class="mx-auto max-w-6xl px-5 py-16">
       <div class="mb-6 flex items-center justify-between">
         <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Featured</div>
-        <a href="/blog" class="text-xs text-muted-foreground hover:text-foreground">All writing &rarr;</a>
+        <a href={withBase("/blog")} class="text-xs text-muted-foreground hover:text-foreground">All writing &rarr;</a>
       </div>
       <article class="grid gap-10 lg:grid-cols-2">
-        <a href={`/blog/${featured.slug}`} class="group block" aria-label={`Read ${featured.title}`}>
+        <a href={withBase(`/blog/${featured.slug}`)} class="group block" aria-label={`Read ${featured.title}`}>
           <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted">
             {
               featured.thumbnail && (
@@ -109,7 +110,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
           <div class="flex items-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
             {
               featuredCategory && (
-                <a href={`/categories/${featuredCategory.slug}`} class="inline-flex min-h-9 items-center text-primary hover:underline">
+                <a href={withBase(`/categories/${featuredCategory.slug}`)} class="inline-flex min-h-9 items-center text-primary hover:underline">
                   {featuredCategory.name}
                 </a>
               )
@@ -117,7 +118,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
             <span>&middot;</span>
             <time datetime={featured.date}>{formatDate(featured.date)}</time>
           </div>
-          <a href={`/blog/${featured.slug}`} class="mt-2 block py-1">
+          <a href={withBase(`/blog/${featured.slug}`)} class="mt-2 block py-1">
             <h2 class="font-serif text-3xl font-semibold leading-tight hover:text-primary sm:text-4xl">
               {featured.title}
             </h2>
@@ -128,20 +129,20 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
               featuredAuthor && (
                 <>
                   <img
-                    src={featuredAuthor.avatar}
+                    src={withBase(featuredAuthor.avatar)}
                     alt=""
                     width="28"
                     height="28"
                     class="h-7 w-7 rounded-full"
                   />
-                  <a href={`/authors/${featuredAuthor.slug}`} class="hover:text-foreground">{featuredAuthor.name}</a>
+                  <a href={withBase(`/authors/${featuredAuthor.slug}`)} class="hover:text-foreground">{featuredAuthor.name}</a>
                   <span>&middot;</span>
                 </>
               )
             }
             <span>{featured.readingTime} min read</span>
           </div>
-          <a href={`/blog/${featured.slug}`} class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
+          <a href={withBase(`/blog/${featured.slug}`)} class="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
             Read the essay <Icon name="arrow-right" class="h-3.5 w-3.5" />
           </a>
         </div>
@@ -183,7 +184,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     </div>
 
     <div class="mt-12 text-center">
-      <a href="/blog" class="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted">
+      <a href={withBase("/blog")} class="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 text-sm font-medium hover:bg-muted">
         Browse the archive <Icon name="arrow-right" class="h-3.5 w-3.5" />
       </a>
     </div>

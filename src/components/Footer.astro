@@ -1,6 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { SITE, categories } from "../lib/blog-data.js";
+import { SITE, categories, withBase } from "../lib/blog-data.js";
 import { SOCIAL_LINKS } from "../config/theme.config.ts";
 
 const { flush = false } = Astro.props;
@@ -16,7 +16,7 @@ const { flush = false } = Astro.props;
       <div class="mt-4 flex items-center gap-3 text-muted-foreground">
         {
           SOCIAL_LINKS.map((link) => (
-            <a href={link.href} aria-label={link.label} class="hover:text-foreground">
+            <a href={withBase(link.href)} aria-label={link.label} class="hover:text-foreground">
               <Icon name={link.icon} class="h-4 w-4" />
             </a>
           ))
@@ -29,7 +29,7 @@ const { flush = false } = Astro.props;
         {
           categories.slice(0, 5).map((category) => (
             <li>
-              <a href={`/categories/${category.slug}`} class="text-foreground/80 hover:text-foreground">
+              <a href={withBase(`/categories/${category.slug}`)} class="text-foreground/80 hover:text-foreground">
                 {category.name}
               </a>
             </li>
@@ -40,10 +40,10 @@ const { flush = false } = Astro.props;
     <div>
       <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">The site</div>
       <ul class="mt-3 space-y-2 text-sm">
-        <li><a href="/about" class="hover:text-foreground">About</a></li>
-        <li><a href="/contact" class="hover:text-foreground">Contact</a></li>
-        <li><a href="/blog" class="hover:text-foreground">Archive</a></li>
-        <li><a href="/rss.xml" class="hover:text-foreground">RSS feed</a></li>
+        <li><a href={withBase("/about")} class="hover:text-foreground">About</a></li>
+        <li><a href={withBase("/contact")} class="hover:text-foreground">Contact</a></li>
+        <li><a href={withBase("/blog")} class="hover:text-foreground">Archive</a></li>
+        <li><a href={withBase("/rss.xml")} class="hover:text-foreground">RSS feed</a></li>
       </ul>
     </div>
   </div>

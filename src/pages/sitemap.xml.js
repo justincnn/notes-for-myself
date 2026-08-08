@@ -1,4 +1,4 @@
-import { SITE, authors, categories, sortedPosts, tags } from "../lib/blog-data.js";
+import { SITE, authors, categories, sortedPosts, tags, withBase } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
@@ -35,7 +35,7 @@ export async function GET() {
   const urls = entries.map((entry) =>
     [
       "  <url>",
-      `    <loc>${BASE_URL}${entry.path}</loc>`,
+      `    <loc>${BASE_URL}${withBase(entry.path)}</loc>`,
       entry.lastmod ? `    <lastmod>${entry.lastmod}</lastmod>` : null,
       entry.changefreq ? `    <changefreq>${entry.changefreq}</changefreq>` : null,
       entry.priority ? `    <priority>${entry.priority}</priority>` : null,

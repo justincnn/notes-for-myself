@@ -2,7 +2,7 @@
 import Icon from "./Icon.astro";
 import PostCard from "./PostCard.astro";
 import Newsletter from "./Newsletter.astro";
-import { categories, tags, popularPosts, sortedPosts, authors } from "../lib/blog-data.js";
+import { categories, tags, popularPosts, sortedPosts, authors, withBase } from "../lib/blog-data.js";
 
 const recent = (await sortedPosts()).slice(0, 4);
 const popular = await popularPosts();
@@ -12,7 +12,7 @@ const author = authors[0];
 <aside class="space-y-10">
   <div>
     <div class="flex items-center gap-3">
-      <img src={author.avatar} alt="" width="40" height="40" class="h-10 w-10 rounded-full" />
+      <img src={withBase(author.avatar)} alt="" width="40" height="40" class="h-10 w-10 rounded-full" />
       <div>
         <div class="text-sm font-medium">{author.name}</div>
         <div class="text-xs text-muted-foreground">Editor</div>
@@ -27,7 +27,7 @@ const author = authors[0];
       {
         categories.map((category) => (
           <li>
-            <a href={`/categories/${category.slug}`} class="text-foreground/80 hover:text-primary">
+            <a href={withBase(`/categories/${category.slug}`)} class="text-foreground/80 hover:text-primary">
               {category.name}
             </a>
           </li>
@@ -56,7 +56,7 @@ const author = authors[0];
       {
         tags.map((tag) => (
           <a
-            href={`/tags/${tag.slug}`}
+            href={withBase(`/tags/${tag.slug}`)}
             class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary"
           >
             {tag.name}
@@ -68,7 +68,7 @@ const author = authors[0];
 
   <Newsletter compact />
 
-  <a href="/rss.xml" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
+  <a href={withBase("/rss.xml")} class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
     <Icon name="rss" class="h-3.5 w-3.5" /> Subscribe via RSS
   </a>
 </aside>
