@@ -9,6 +9,7 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+  base: "/notes-for-myself", // 👈 关键修改：添加 GitHub 仓库子路径（注意前后的斜杠）
   integrations: [
     tailwind({
       applyBaseStyles: false,
