@@ -29,6 +29,8 @@ export const normalizePost = (entry) => ({
   ...entry.data,
   date: isoDate(entry.data.date),
   updated: isoDate(entry.data.updated),
+  category: (entry.data.category ?? "").toLowerCase(),
+  tags: (entry.data.tags ?? []).map((tag) => tag.toLowerCase()),
   readingTime: entry.data.readingTime ?? estimateReadingTime(entry.body),
 });
 

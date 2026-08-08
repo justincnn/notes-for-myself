@@ -4,9 +4,14 @@ import { z } from "astro/zod";
 
 const blog = defineCollection({
   loader: glob({
-    pattern: "**/index.mdx",
+    pattern: "**/*.{md,mdx}",
     base: "./src/content/blog",
-    generateId: ({ entry }) => entry.replace(/[\\/]index\.mdx$/, "").replace(/\\/g, "/"),
+    generateId: ({ entry }) => {
+      const parts = entry.replace(/\\/g, "/").split("/");
+      const file = parts.pop() ?? "";
+      const folder = parts.pop() ?? "";
+      return folder || file.replace(/\.mdx?$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+    },
   }),
   schema: ({ image }) =>
     z.object({
@@ -21,7 +26,7 @@ const blog = defineCollection({
       category: z.string(),
       tags: z.array(z.string()).default([]),
       author: z.string().optional(),
-      thumbnail: image().optional(),
+      thumbnail: z.union([image(), z.string()]).optional(),
       thumbnailAlt: z.string().default(""),
       imageCredit: z
         .object({

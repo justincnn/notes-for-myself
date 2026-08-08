@@ -39,16 +39,22 @@ const related = await relatedPosts(post);
 const { prev, next } = await adjacentPosts(post);
 const canonical = post.canonical ?? `/blog/${post.slug}`;
 const canonicalUrl = new URL(withBase(canonical), SITE.url).toString();
-const socialImage = post.thumbnail
-  ? await getImage({
-      src: post.thumbnail,
-      width: 1200,
-      height: 630,
-      format: "webp",
-      quality: 78,
-    })
-  : undefined;
-const thumbnailUrl = socialImage ? new URL(socialImage.src, SITE.url).toString() : undefined;
+const thumbnailIsString = typeof post.thumbnail === "string";
+const socialImage =
+  !thumbnailIsString && post.thumbnail
+    ? await getImage({
+        src: post.thumbnail,
+        width: 1200,
+        height: 630,
+        format: "webp",
+        quality: 78,
+      })
+    : undefined;
+const thumbnailUrl = socialImage
+  ? new URL(socialImage.src, SITE.url).toString()
+  : thumbnailIsString
+    ? new URL(encodeURI(withBase(post.thumbnail)), SITE.url).toString()
+    : undefined;
 const shareUrl = canonicalUrl;
 const jsonLd = {
   "@context": "https://schema.org",
@@ -68,7 +74,7 @@ const jsonLd = {
   description={post.seoDescription ?? post.excerpt}
   canonical={canonical}
   ogType="article"
-  ogImage={socialImage?.src}
+  ogImage={socialImage?.src ?? (thumbnailIsString ? post.thumbnail : undefined)}
   jsonLd={jsonLd}
   flushFooter
 >
@@ -119,15 +125,27 @@ const jsonLd = {
       post.thumbnail && (
         <figure class="mx-auto mt-10 max-w-4xl">
           <div class="overflow-hidden rounded-md bg-muted">
-            <Image
-              src={post.thumbnail}
-              alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
-              class="w-full"
-              widths={[640, 960, 1280, 1600]}
-              sizes="(min-width: 1024px) 896px, calc(100vw - 40px)"
-              format="webp"
-              quality={78}
-            />
+            {
+              thumbnailIsString ? (
+                <img
+                  src={withBase(post.thumbnail)}
+                  alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
+                  class="w-full"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <Image
+                  src={post.thumbnail}
+                  alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
+                  class="w-full"
+                  widths={[640, 960, 1280, 1600]}
+                  sizes="(min-width: 1024px) 896px, calc(100vw - 40px)"
+                  format="webp"
+                  quality={78}
+                />
+              )
+            }
           </div>
           {
             post.imageCredit && (

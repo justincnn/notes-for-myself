@@ -48,6 +48,8 @@ export const SOCIAL_LINKS = [
 
 export const authors = [];
 
-export const categories = [];
+export const categories = [
+  { slug: "vps", name: "VPS" },
+];
 
 export const tags = [];

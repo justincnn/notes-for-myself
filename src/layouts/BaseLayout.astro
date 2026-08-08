@@ -21,7 +21,7 @@ const absoluteUrl = (value) => {
   if (!src) return undefined;
   if (/^(?:[a-z]+:)?\/\//i.test(src)) return src;
   const path = src.startsWith(base) ? src.slice(base.length) : src;
-  return `${siteUrl}${base}${path.startsWith("/") ? path : `/${path}`}`;
+  return encodeURI(`${siteUrl}${base}${path.startsWith("/") ? path : `/${path}`}`);
 };
 const canonicalUrl = absoluteUrl(canonical || Astro.url.pathname);
 const ogImageUrl = absoluteUrl(ogImage);
