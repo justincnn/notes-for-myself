@@ -5,7 +5,7 @@ const siteUrl = (
 ).replace(/\/$/, "");
 
 export const SITE = {
-  name: "Quiet Pages",
+  name: "The Liberal Arts Guide to IT",
   description:
     "A personal hobby blog collecting and organizing notes on software, systems, and AI. Written by a curious hobbyist, not an expert.",
   url: siteUrl,
