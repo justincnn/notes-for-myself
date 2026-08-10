@@ -3,6 +3,7 @@ import "../styles.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, imageSrc, withBase } from "../lib/blog-data.js";
+import { ANALYTICS } from "../config/theme.config.ts";
 
 const {
   title = `${SITE.name} - A personal collection of IT & AI notes`,
@@ -65,6 +66,16 @@ const ogImageUrl = absoluteUrl(ogImage);
     {
       jsonLd && (
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      )
+    }
+    {
+      ANALYTICS.goatcounter.enabled && ANALYTICS.goatcounter.site && (
+        <script
+          is:inline
+          data-goatcounter={`https://${ANALYTICS.goatcounter.site}/count`}
+          async
+          src="//gc.zgo.at/count.js"
+        />
       )
     }
     <script is:inline>

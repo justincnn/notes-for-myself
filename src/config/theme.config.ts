@@ -39,6 +39,13 @@ export const FORMS = {
   },
 };
 
+export const ANALYTICS = {
+  goatcounter: {
+    enabled: true,
+    site: "justincnn.goatcounter.com",
+  },
+};
+
 export const SOCIAL_LINKS = [
   { href: "/rss.xml", label: "RSS feed", icon: "rss" },
   { href: CONTACT.socialUrl, label: `${SITE.name} on X`, icon: "twitter" },
