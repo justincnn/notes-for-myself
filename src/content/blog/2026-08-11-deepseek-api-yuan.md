@@ -13,12 +13,10 @@ tags:
   - AI
   - 福利
 author: Justin
-thumbnail: /tokenrhythm-invite-rf_tr_gHs3hbYfYWNHY2Ryw9R4-llz.png
+thumbnail: /tokenrhythm-invite-rf_tr_AzrSTYAcq8BTSyT5vslSu4fh-1.png
 featured: true
 draft: false
 ---
-
-
 折腾 AI Agent 的朋友大概都有过这种体验：想对比 DeepSeek、GLM、Kimi、Qwen 的效果，就得分别注册账号、各自充值，SDK 配置还互不兼容，来回切很麻烦。
 
 前两天看到有人推荐**基元律动（TokenRhythm）**，说一个 Key 能调 12 款国产模型，就顺手注册试了试。用了几天，把体验整理成这篇笔记，给同样在折腾 API 的朋友参考。
@@ -32,11 +30,8 @@ draft: false
 ## 几个让我觉得有用的点
 
 - **协议兼容省心**：支持 OpenAI Chat Completions、Anthropic Messages 和 Embeddings 三种协议，现有代码大多改个 `base_url` 就能跑
-
 - **OpenSquilla 智能路由**：官方客户端内置语义路由和多模型融合，同成本提效果、同效果降成本，做 Agent 评测挺方便
-
 - **用量透明**：控制台能看到每笔调用的 Token 消耗和账单，做成本优化有依据
-
 - **最新模型跟得上**：DeepSeek V4 系列、GLM 5.2 这些近期发布的模型，平台都第一时间接入了
 
 
@@ -44,16 +39,15 @@ draft: false
 ![](/tokenrhythm-invite-rf_tr_AzrSTYAcq8BTSyT5vslSu4fh.png)
 
 ---
-**[点击注册](https://tokenrhythm.studio/i/rf_tr_AzrSTYAcq8BTSyT5vslSu4fh)**
----
+
+## **[点击注册](https://tokenrhythm.studio/i/rf_tr_AzrSTYAcq8BTSyT5vslSu4fh)**
+
 ## 邀请制：注册后能免费拿到 API 额度
 
 目前平台处于推广期，采用**邀请制注册**，官方给的规则是这样的：
 
 1. 好友通过你的邀请链接注册，下载并打开 **OpenSquilla 客户端**
-
 2. 你与好友**各自完成一次有效的 OpenSquilla 调用**
-
 3. 之后双方各得 **68 元 Token 额度**，邀请人的奖励会自动到账
 
 翻译成大白话：**注册 + 在 OpenSquilla 里调一次 Key，就能免费拿到 68 元 API 余额**，而这笔余额是可以在真实 API 调用里按量消耗的，不是只能在网页对话框里玩。
@@ -113,11 +107,8 @@ print(response.choices[0].message.content)
 几个实操中容易踩的坑，提前说下：
 
 - **API Key 只在创建成功时完整展示一次**，务必当场保存，丢了就得重建
-
 - 走 Anthropic 协议时，需要带 `anthropic-version: 2023-06-01` 请求头，并传 `max_tokens`
-
 - 用 DeepSeek 系列时`tool_choice` 只支持 `none` / `auto` / `required`，别传对象形式
-
 - 别把 Key 写进公开代码仓库或前端脚本，网上扫 Key 的脚本很多
 
 ## 总结
@@ -129,8 +120,6 @@ print(response.choices[0].message.content)
 相关链接：
 
 - 官网：[https://tokenrhythm.studio/](https://tokenrhythm.studio/)
-
 - API 文档：[https://tokenrhythm.studio/docs/api-integration](https://tokenrhythm.studio/docs/api-integration)
-
 - OpenSquilla 介绍：[https://tokenrhythm.studio/docs/opensquilla](https://tokenrhythm.studio/docs/opensquilla)
 
