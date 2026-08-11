@@ -17,7 +17,6 @@ import {
   normalizePost,
   withBase,
 } from "../../lib/blog-data.js";
-import { ANALYTICS } from "../../config/theme.config.ts";
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog", ({ data }) => !data.draft);
@@ -39,11 +38,6 @@ const toc = headings
 const related = await relatedPosts(post);
 const { prev, next } = await adjacentPosts(post);
 const canonical = post.canonical ?? `/blog/${post.slug}`;
-const { goatcounter } = ANALYTICS;
-const counterUrl =
-  goatcounter.enabled && goatcounter.site
-    ? `https://${goatcounter.site}/counter/${encodeURIComponent(`/blog/${post.slug}`)}.json`
-    : null;
 const canonicalUrl = new URL(withBase(canonical), SITE.url).toString();
 const thumbnailIsString = typeof post.thumbnail === "string";
 const socialImage =
@@ -124,7 +118,6 @@ const jsonLd = {
         {post.updated && <><span>&middot;</span><span class="italic">updated {formatDate(post.updated)}</span></>}
         <span>&middot;</span>
         <span>{post.readingTime} min read</span>
-        <span data-views-counter data-views-url={counterUrl} hidden>&middot; <span data-views-value></span> views</span>
       </div>
     </header>
 
@@ -379,22 +372,5 @@ const jsonLd = {
         }, 1800);
       } catch (error) {}
     });
-  });
-</script>
-
-<script>
-  const viewCounters = document.querySelectorAll("[data-views-counter]");
-  viewCounters.forEach((el) => {
-    const url = el.dataset.viewsUrl;
-    if (!url) return;
-    fetch(url)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        const count = Number(data?.count);
-        if (!Number.isFinite(count)) return;
-        el.querySelector("[data-views-value]").textContent = count;
-        el.hidden = false;
-      })
-      .catch(() => {});
   });
 </script>
